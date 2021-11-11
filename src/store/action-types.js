@@ -1,0 +1,6 @@
+export const loadScenicSpot = 'loadScenicSpot'
+export const loadRestaurant = 'loadRestaurant'
+export const loadActivity = 'loadActivity'
+export const searchScenicSpot = 'searchScenicSpot'
+export const searchRestaurant = 'searchRestaurant'
+export const searchActivity = 'searchActivity'
