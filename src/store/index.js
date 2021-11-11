@@ -4,6 +4,7 @@ import { loadScenicSpot, loadRestaurant, loadActivity, searchScenicSpot, searchR
 import { tourismType } from '@/utils/config'
 import { getTourism } from '@/api/tourism'
 import { sampleSize } from 'lodash-es'
+import dayjs from 'dayjs'
 
 export default createStore({
   state: {
@@ -57,7 +58,7 @@ export default createStore({
       if (state.activity.length) return
       const res = await getTourism(tourismType.activity, {
         top: 100,
-        skip: Math.floor(Math.random() * 50),
+        skip: Math.floor(Math.random() * 30),
         filter: 'Picture/PictureUrl1 ne null and City ne null'
       })
       commit(ACTIVITY, res)
@@ -85,9 +86,9 @@ export default createStore({
     }
   },
   getters: {
-    carousel (state) {
-      const arr = sampleSize(state.scenicSpot, 6)
-      const carousel = arr.map(item => {
+    popularScenicSpot: (state) => (count) => {
+      const arr = sampleSize(state.scenicSpot, count)
+      const res = arr.map(item => {
         return {
           id: item.ID,
           name: item.Name,
@@ -98,14 +99,33 @@ export default createStore({
           }
         }
       })
-      return carousel
+      return res
     },
     recentActivity (state) {
-      const arr = state.activity.filter(item => {
-
+      const now = dayjs()
+      const twoMonths = now.add(2, 'month')
+      let arr = state.activity.filter(item => {
+        return now.isAfter(item.StartTime) && twoMonths.isAfter(item.EndTime)
       })
       arr = sampleSize(state.activity, 4)
-      const carousel = arr.map(item => {
+      const res = arr.map(item => {
+        return {
+          id: item.ID,
+          name: item.Name,
+          city: item.City,
+          startTime: dayjs(item.StartTime).format('YYYY/MM/DD'),
+          endTime: dayjs(item.EndTime).format('YYYY/MM/DD'),
+          picture: {
+            url: item.Picture.PictureUrl1,
+            description: item.Picture.PictureDescription1
+          }
+        }
+      })
+      return res
+    },
+    goodRestaurant (state) {
+      const arr = sampleSize(state.restaurant, 4)
+      const res = arr.map(item => {
         return {
           id: item.ID,
           name: item.Name,
@@ -116,7 +136,7 @@ export default createStore({
           }
         }
       })
-      return carousel
+      return res
     }
   }
 })
