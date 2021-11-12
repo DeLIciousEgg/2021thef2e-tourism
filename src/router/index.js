@@ -1,19 +1,45 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import Home from '../views/Home.vue'
+import { tourismType } from '@/utils/config'
 
 const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: () => import('@/views/Home.vue')
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: '/search/:type',
+    name: 'Search',
+    component: () => import('@/views/Search.vue'),
+    beforeEnter: (to, from) => {
+      return Object.keys(tourismType).includes(to.params.type)
+    },
+    children: [
+      {
+        path: 'category',
+        name: 'Category',
+        component: () => import('@/views/Category.vue')
+      },
+      {
+        path: 'category/:category',
+        name: 'CategoryList',
+        component: () => import('@/views/CategoryList.vue')
+      },
+      {
+        path: 'list',
+        name: 'List',
+        component: () => import('@/views/SearchList.vue')
+      }
+    ]
+  },
+  {
+    path: '/tourism/:id',
+    name: 'Tourism',
+    component: () => import('@/views/Tourism.vue')
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: '/'
   }
 ]
 

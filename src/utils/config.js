@@ -26,6 +26,5 @@ export const city = {
 export const tourismType = {
   scenicSpot: 'ScenicSpot',
   restaurant: 'Restaurant',
-  hotel: 'Hotel',
   activity: 'Activity'
 }

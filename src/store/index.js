@@ -39,7 +39,7 @@ export default createStore({
     async [loadScenicSpot] ({ commit, state }) {
       if (state.scenicSpot.length) return
       const res = await getTourism(tourismType.scenicSpot, {
-        top: 100,
+        top: 500,
         skip: Math.floor(Math.random() * 500),
         filter: 'Picture/PictureUrl1 ne null and City ne null'
       })
@@ -48,7 +48,7 @@ export default createStore({
     async [loadRestaurant] ({ commit, state }) {
       if (state.restaurant.length) return
       const res = await getTourism(tourismType.restaurant, {
-        top: 100,
+        top: 500,
         skip: Math.floor(Math.random() * 500),
         filter: 'Picture/PictureUrl1 ne null and City ne null'
       })
@@ -57,7 +57,7 @@ export default createStore({
     async [loadActivity] ({ commit, state }) {
       if (state.activity.length) return
       const res = await getTourism(tourismType.activity, {
-        top: 100,
+        top: 200,
         skip: Math.floor(Math.random() * 30),
         filter: 'Picture/PictureUrl1 ne null and City ne null'
       })
@@ -137,6 +137,55 @@ export default createStore({
         }
       })
       return res
+    },
+    categoryScenicSpot (state) {
+      const data = state.scenicSpot.reduce((prev, current) => {
+        [1, 2, 3].forEach(n => {
+          if (`Class${n}` in current) {
+            prev[current[`Class${n}`]] = {
+              picture: {
+                url: current.Picture.PictureUrl1,
+                description: current.Picture.PictureDescription1
+              }
+            }
+          }
+        })
+        return prev
+      }, {})
+
+      return data
+    },
+    categoryRestaurant (state) {
+      const data = state.restaurant.reduce((prev, current) => {
+        if ('Class' in current) {
+          prev[current.Class] = {
+            picture: {
+              url: current.Picture.PictureUrl1,
+              description: current.Picture.PictureDescription1
+            }
+          }
+        }
+        return prev
+      }, {})
+
+      return data
+    },
+    categoryActivity (state) {
+      const data = state.activity.reduce((prev, current) => {
+        [1, 2].forEach(n => {
+          if (`Class${n}` in current) {
+            prev[current[`Class${n}`]] = {
+              picture: {
+                url: current.Picture.PictureUrl1,
+                description: current.Picture.PictureDescription1
+              }
+            }
+          }
+        })
+        return prev
+      }, {})
+
+      return data
     }
   }
 })
