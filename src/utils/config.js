@@ -28,3 +28,9 @@ export const tourismType = {
   restaurant: 'Restaurant',
   activity: 'Activity'
 }
+
+export const tourismTypeList = [
+  { id: 'scenicSpot', name: '探索景點' },
+  { id: 'restaurant', name: '節慶活動' },
+  { id: 'activity', name: '品嚐美食' }
+]
