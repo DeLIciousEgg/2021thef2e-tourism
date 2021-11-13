@@ -7,31 +7,41 @@
       </router-link>
     </h1>
     <nav class="my-auto">
-      <ul class="hidden md:flex md:space-x-5">
-        <li v-for="item of tourismTypeList" :key="item.id" class="text-primary-dark hover:text-primary-link text-lg">
-          <router-link :to="`/search/${item.id}/category`">
-            {{ item.name }}
-          </router-link>
-        </li>
-      </ul>
-      <button class="bg-primary-light rounded-xl w-12 h-12 fixed top-2 right-2 focus:outline-none p-2.5" @click="open = !open">
-        <span class="sr-only">Open main menu</span>
-        <div class="flex flex-col justify-center items-end">
-          <span
-            class="block absolute transform w-5 h-1 bg-white transition duration-500 ease-in-out"
-            :class="{'w-7 rotate-45': open,' -translate-y-2': !open }">
-          </span>
-          <span
-            class="block absolute transform origin-center w-7 h-1 bg-white transition duration-500 ease-in-out"
-            :class="{'opacity-0': open }">
-            </span>
-          <span
-            class="block absolute transform w-5 h-1 bg-white transition duration-500 ease-in-out"
-            :class="{'w-7 -rotate-45': open,' translate-y-2': !open }">
-          </span>
-        </div>
-      </button>
+      <div class="bg-gray-50 opacity-70 absolute inset-0" v-show="open" @click="open = false"></div>
+      <div
+        class="absolute opacity-0 md:opacity-100 md:relative"
+        :class="{'opacity-100 absolute w-72 top-0 right-0 bg-white rounded-bl-3xl': open}">
+        <img src="@/assets/Logo-mobile.png" alt="臺灣走走" class="ml-7 mt-4 md:hidden"/>
+        <ul class="md:flex md:space-x-5">
+          <li
+            v-for="item of tourismTypeList"
+            :key="item.id"
+            class="text-center text-primary-dark text-lg border-solid hover:text-primary hover:border-b hover:border-highlight"
+            :class="{'border-b border-trueGray-200 last:border-0': open}">
+            <router-link :to="`/search/${item.id}/category`" :class="{'block px-auto py-6': open}" @click="open = false">
+              {{ item.name }}
+            </router-link>
+          </li>
+        </ul>
+      </div>
     </nav>
+    <button class="bg-primary-light rounded-xl w-12 h-12 fixed top-2 right-2 focus:outline-none p-2.5 md:hidden" @click="open = !open">
+      <span class="sr-only">Open main menu</span>
+      <div class="flex flex-col justify-center items-end">
+        <span
+          class="block absolute transform w-5 h-1 bg-white transition duration-500 ease-in-out"
+          :class="{'w-7 rotate-45': open,' -translate-y-2': !open }">
+        </span>
+        <span
+          class="block absolute transform origin-center w-7 h-1 bg-white transition duration-500 ease-in-out"
+          :class="{'opacity-0': open }">
+          </span>
+        <span
+          class="block absolute transform w-5 h-1 bg-white transition duration-500 ease-in-out"
+          :class="{'w-7 -rotate-45': open,' translate-y-2': !open }">
+        </span>
+      </div>
+    </button>
   </div>
 </template>
 

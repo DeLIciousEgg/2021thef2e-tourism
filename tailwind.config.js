@@ -11,6 +11,7 @@ module.exports = {
           footer: '#65895F',
           link: '#6E7D60'
         },
+        highlight: '#E0DA48',
         tag: '#BEA363',
         more: '#FF725E',
         black: '#2F2F2F',
@@ -19,7 +20,11 @@ module.exports = {
     }
   },
   variants: {
-    extend: {}
+    extend: {
+      borderWidth: ['hover', 'last'],
+      borderColor: ['hover'],
+      borderStyle: ['hover']
+    }
   },
   plugins: []
 }
