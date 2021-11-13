@@ -16,6 +16,9 @@ module.exports = {
         more: '#FF725E',
         black: '#2F2F2F',
         block: '#F9F9F9'
+      },
+      outline: {
+        primary: ['2px solid #7F977B']
       }
     }
   },
@@ -23,7 +26,8 @@ module.exports = {
     extend: {
       borderWidth: ['hover', 'last'],
       borderColor: ['hover'],
-      borderStyle: ['hover']
+      borderStyle: ['hover'],
+      outline: ['active', 'focus']
     }
   },
   plugins: []
