@@ -18,7 +18,7 @@
           class="flex md:border md:border-solid md:border-true-gray md:rounded-2xl md:overflow-hidden group"
         >
           <router-link
-            :to="`/tourism/${item.id}`"
+            :to="`/tourism/activity/${item.id}`"
             class="w-2/6 h-16 sm:h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 rounded-2xl md:rounded-none overflow-hidden flex-shrink-0"
           >
             <img
@@ -34,7 +34,7 @@
               class="text-primary-dark text-xs font-normal md:text-base md:mb-2"
             >{{ item.startTime }} - {{ item.endTime }}</div>
             <router-link
-              :to="`/tourism/${item.id}`"
+              :to="`/tourism/activity/${item.id}`"
               class="text-black font-bold truncate md:text-xl"
             >{{ item.name }}</router-link>
             <div class="flex justify-between mt-auto">
@@ -42,7 +42,7 @@
                 <img src="@/assets/marker-gray.svg" alt="Marker" />
                 <span class="ml-1 text-primary-dark text-xs font-normal">{{ item.city }}</span>
               </div>
-              <router-link :to="`/tourism/${item.id}`" class="flex">
+              <router-link :to="`/tourism/activity/${item.id}`" class="flex text-primary">
                 詳細介紹
                 <img
                   src="@/assets/chevron-right-green.svg"

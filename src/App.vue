@@ -1,7 +1,9 @@
 <template>
-  <Header/>
-  <router-view/>
-  <Footer/>
+  <Header />
+  <div class="container mx-auto">
+    <router-view />
+  </div>
+  <Footer />
 </template>
 
 <script>

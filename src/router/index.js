@@ -1,6 +1,10 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { tourismType } from '@/utils/config'
 
+const isTourismType = (type) => {
+  Object.keys(tourismType).includes(type)
+}
+
 const routes = [
   {
     path: '/',
@@ -12,7 +16,7 @@ const routes = [
     name: 'Search',
     component: () => import('@/views/Search.vue'),
     beforeEnter: (to, from) => {
-      return Object.keys(tourismType).includes(to.params.type)
+      return isTourismType(to.params.type)
     },
     children: [
       {
@@ -33,9 +37,12 @@ const routes = [
     ]
   },
   {
-    path: '/tourism/:id',
+    path: '/tourism/:type/:id',
     name: 'Tourism',
-    component: () => import('@/views/Tourism.vue')
+    component: () => import('@/views/Tourism.vue'),
+    beforeEnter: (to, from) => {
+      return isTourismType(to.params.type)
+    }
   },
   {
     path: '/:pathMatch(.*)*',

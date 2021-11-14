@@ -8,13 +8,13 @@
     </h1>
     <nav class="my-auto">
       <div
-        class="bg-gray-50 opacity-70 fixed inset-0 md:hidden"
+        class="bg-gray-50 opacity-70 fixed inset-0 md:hidden z-10"
         v-show="open"
         @click="open = false"
       ></div>
       <div
         class="w-0 h-0 opacity-0 md:shadow-none md:rounded-none md:opacity-100 md:w-auto md:h-auto md:static"
-        :class="{ 'fixed top-0 right-0 bg-white shadow-md rounded-bl-3xl w-72 h-auto opacity-100 transition-all': open }"
+        :class="{ 'fixed top-0 right-0 bg-white shadow-md rounded-bl-3xl w-72 h-auto opacity-100 transition-all z-20': open }"
       >
         <img src="@/assets/Logo-mobile.png" alt="臺灣走走" class="ml-7 mt-4 md:hidden" />
         <ul class="md:flex md:space-x-5">
@@ -34,7 +34,7 @@
       </div>
     </nav>
     <button
-      class="bg-primary-light rounded-xl w-12 h-12 fixed top-2 right-2 focus:outline-none p-2.5 md:hidden"
+      class="bg-primary-light rounded-xl w-12 h-12 fixed top-2 right-2 focus:outline-none p-2.5 md:hidden z-30"
       @click="open = !open"
     >
       <span class="sr-only">Open main menu</span>

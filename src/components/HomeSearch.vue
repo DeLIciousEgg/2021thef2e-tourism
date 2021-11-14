@@ -1,12 +1,12 @@
 <template>
-  <div class="text-center">
+  <form class="text-center" @submit="searchHandler">
     <base-select class="w-full mb-2" :options="tourismTypeList" label-key="name" v-model="type" />
     <base-input class="w-full mb-2" placeholder="你想去哪裡？請輸入關鍵字" v-model="text" />
     <base-button class="w-full" @click="searchHandler">
       <img src="@/assets/Search.svg" alt="Search" class="mr-3" />
       <span class="font-bold tracking-widest">搜 尋</span>
     </base-button>
-  </div>
+  </form>
 </template>
 
 <script>
