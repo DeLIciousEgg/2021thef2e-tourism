@@ -1,6 +1,6 @@
 <template>
   <select
-    class="px-7 py-3 border-true-gray-200 border border-solid rounded-md text-primary font-bold"
+    class="px-7 py-3 border-true-gray-200 border border-solid rounded-md text-primary font-bold bg-white h-12"
     @change="$emit('update:modelValue', $event.target.value)"
   >
     <option
