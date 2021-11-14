@@ -2,6 +2,7 @@
   "name": "2021thef2e-tourism",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://deLIciousegg.github.io/2021thef2e-tourism",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
