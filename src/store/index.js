@@ -124,7 +124,7 @@ export default createStore({
       return res
     },
     goodRestaurant (state) {
-      const arr = sampleSize(state.restaurant, 4)
+      const arr = sampleSize(state.restaurant, 6)
       const res = arr.map(item => {
         return {
           id: item.ID,

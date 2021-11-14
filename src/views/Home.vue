@@ -53,7 +53,7 @@ export default {
     })
 
     return {
-      popularScenicSpot: computed(() => store.getters.popularScenicSpot(4)),
+      popularScenicSpot: computed(() => store.getters.popularScenicSpot(6)),
       goodRestaurant: computed(() => store.getters.goodRestaurant)
     }
   }

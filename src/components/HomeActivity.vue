@@ -24,7 +24,7 @@
             <img
               :src="item.picture.url"
               :alt="item.picture.description"
-              class="w-full h-full object-cover object-center transform group-hover:scale-110 transition-transform"
+              class="w-full h-full object-cover object-center transform group-hover:scale-110 transition-transform bg-primary"
             />
           </router-link>
           <div

@@ -7,7 +7,7 @@
       <img
         :src="img"
         :alt="imgDescription"
-        class="w-full h-full object-cover object-center transform group-hover:scale-110 transition-transform"
+        class="w-full h-full object-cover object-center transform group-hover:scale-110 transition-transform bg-primary"
       />
     </div>
     <div class="text-lg md:text-xl font-bold mt-2 text-black">{{ name }}</div>
