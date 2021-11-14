@@ -5,16 +5,21 @@
     <home-title />
     <home-search />
   </div>
+  <div class="px-4 md:px-11">
+    <home-activity />
+  </div>
 </template>
 
 <script>
 import HomeTitle from '@/components/HomeTitle'
 import HomeSearch from '@/components/HomeSearch'
+import HomeActivity from '@/components/HomeActivity'
 export default {
   name: 'Tourism',
   components: {
     HomeTitle,
-    HomeSearch
+    HomeSearch,
+    HomeActivity
   },
   setup () {
   }
