@@ -6,6 +6,7 @@
     <home-search />
   </div>
   <div class="px-4 md:px-11 mb-9">
+    <home-swiper :list="swiperList" :loading="isLoad.scenicSpot" class="mb-9" />
     <home-activity />
   </div>
   <div class="mb-9">
@@ -34,6 +35,7 @@
 import HomeTitle from '@/components/HomeTitle'
 import HomeSearch from '@/components/HomeSearch'
 import HomeActivity from '@/components/HomeActivity'
+import HomeSwiper from '@/components/HomeSwiper'
 import CardBlock from '@/components/CardBlock'
 import { computed, onMounted, reactive } from 'vue'
 import { useStore } from 'vuex'
@@ -44,6 +46,7 @@ export default {
     HomeTitle,
     HomeSearch,
     HomeActivity,
+    HomeSwiper,
     CardBlock
   },
   setup () {
@@ -62,6 +65,7 @@ export default {
 
     return {
       isLoad,
+      swiperList: computed(() => store.getters.popularScenicSpot(6)),
       popularScenicSpot: computed(() => store.getters.popularScenicSpot(6)),
       goodRestaurant: computed(() => store.getters.goodRestaurant)
     }
