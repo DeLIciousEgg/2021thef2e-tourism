@@ -1,3 +1,5 @@
+import dayjs from 'dayjs'
+
 export const city = {
   臺北市: 'Taipei',
   新北市: 'NewTaipei',
@@ -34,3 +36,7 @@ export const tourismTypeList = [
   { id: 'restaurant', name: '節慶活動' },
   { id: 'activity', name: '品嚐美食' }
 ]
+
+export const dateFormat = (dateTime) => {
+  return dayjs(dateTime).format('YYYY/MM/DD')
+}

@@ -1,7 +1,7 @@
 import { createStore } from 'vuex'
 import { SCENIC_SPOT, RESTAURANT, ACTIVITY, SEARCH_SCENIC_SPOT, SEARCH_RESTAURANT, SEARCH_ACTIVITY } from './mutation-types'
 import { loadScenicSpot, loadRestaurant, loadActivity, searchScenicSpot, searchRestaurant, searchActivity } from './action-types'
-import { tourismType } from '@/utils/config'
+import { tourismType, dateFormat } from '@/utils/config'
 import { getTourism } from '@/api/tourism'
 import { sampleSize } from 'lodash-es'
 import dayjs from 'dayjs'
@@ -113,8 +113,8 @@ export default createStore({
           id: item.ID,
           name: item.Name,
           city: item.City,
-          startTime: dayjs(item.StartTime).format('YYYY/MM/DD'),
-          endTime: dayjs(item.EndTime).format('YYYY/MM/DD'),
+          startTime: dateFormat(item.StartTime),
+          endTime: dateFormat(item.EndTime),
           picture: {
             url: item.Picture.PictureUrl1,
             description: item.Picture.PictureDescription1
