@@ -10,6 +10,7 @@
   </div>
   <div class="mb-9">
     <card-block
+      :loading="isLoad.scenicSpot"
       title="熱門打卡景點"
       moreLabel="查看更多景點"
       :list="popularScenicSpot"
@@ -19,6 +20,7 @@
   </div>
   <div class="mb-9">
     <card-block
+      :loading="isLoad.restaurant"
       title="一再回訪美食"
       moreLabel="查看更多美食"
       :list="goodRestaurant"
@@ -33,7 +35,7 @@ import HomeTitle from '@/components/HomeTitle'
 import HomeSearch from '@/components/HomeSearch'
 import HomeActivity from '@/components/HomeActivity'
 import CardBlock from '@/components/CardBlock'
-import { computed, onMounted } from 'vue'
+import { computed, onMounted, reactive } from 'vue'
 import { useStore } from 'vuex'
 import { loadScenicSpot, loadRestaurant } from '@/store/action-types'
 export default {
@@ -46,13 +48,20 @@ export default {
   },
   setup () {
     const store = useStore()
+    const isLoad = reactive({
+      scenicSpot: true,
+      restaurant: true
+    })
 
     onMounted(async () => {
       await store.dispatch(loadScenicSpot)
+      isLoad.scenicSpot = false
       await store.dispatch(loadRestaurant)
+      isLoad.restaurant = false
     })
 
     return {
+      isLoad,
       popularScenicSpot: computed(() => store.getters.popularScenicSpot(6)),
       goodRestaurant: computed(() => store.getters.goodRestaurant)
     }
