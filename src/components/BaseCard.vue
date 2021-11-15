@@ -1,5 +1,5 @@
 <template>
-  <div class="group" @click="$emit('click')">
+  <div class="group cursor-pointer" @click="$emit('click')">
     <div
       class="rounded-2xl overflow-hidden w-56 h-40 sm:w-60 sm:h-44 md:w-64 md:h-52"
       :class="[imgClass, { 'skeleton': loading }]"

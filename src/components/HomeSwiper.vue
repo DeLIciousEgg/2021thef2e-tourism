@@ -7,6 +7,8 @@
     :pagination="{
       clickable: true
     }"
+    loop
+    autoplay
     class="w-full h-48 sm:h-60 md:h-96"
   >
     <swiper-slide
@@ -21,6 +23,7 @@
         :key="item.id"
         class="w-full h-full relative rounded-3xl overflow-hidden"
       >
+        <router-link :to="`/tourism/scenicSpot/${item.id}`" class="absolute inset-0"></router-link>
         <img
           :src="item.picture.url"
           :alt="item.picture.description"
@@ -35,10 +38,10 @@
 </template>
 
 <script>
-import SwiperCore, { Navigation, Pagination } from 'swiper'
+import SwiperCore, { Navigation, Pagination, Autoplay } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/swiper-bundle.min.css'
-SwiperCore.use([Navigation, Pagination])
+SwiperCore.use([Navigation, Pagination, Autoplay])
 
 export default {
   name: 'HomeSwiper',
