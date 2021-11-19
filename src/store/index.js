@@ -1,6 +1,4 @@
 import { createStore } from 'vuex'
-import { SCENIC_SPOT, RESTAURANT, ACTIVITY, SEARCH_SCENIC_SPOT, SEARCH_RESTAURANT, SEARCH_ACTIVITY } from './mutation-types'
-import { loadScenicSpot, loadRestaurant, loadActivity, searchScenicSpot, searchRestaurant, searchActivity } from './action-types'
 import { tourismType, dateFormat } from '@/utils/config'
 import { getTourism } from '@/api/tourism'
 import { sampleSize } from 'lodash-es'
@@ -16,73 +14,73 @@ export default createStore({
     searchActivity: []
   },
   mutations: {
-    [SCENIC_SPOT] (state, payload) {
+    SCENIC_SPOT (state, payload) {
       state.scenicSpot = payload
     },
-    [RESTAURANT] (state, payload) {
+    RESTAURANT (state, payload) {
       state.restaurant = payload
     },
-    [ACTIVITY] (state, payload) {
+    ACTIVITY (state, payload) {
       state.activity = payload
     },
-    [SEARCH_SCENIC_SPOT] (state, payload) {
+    SEARCH_SCENIC_SPOT (state, payload) {
       state.searchScenicSpot = payload
     },
-    [SEARCH_RESTAURANT] (state, payload) {
+    SEARCH_RESTAURANT (state, payload) {
       state.searchRestaurant = payload
     },
-    [SEARCH_ACTIVITY] (state, payload) {
+    SEARCH_ACTIVITY (state, payload) {
       state.searchActivity = payload
     }
   },
   actions: {
-    async [loadScenicSpot] ({ commit, state }) {
+    async getScenicSpot ({ commit, state }) {
       if (state.scenicSpot.length) return
       const res = await getTourism(tourismType.scenicSpot, {
         top: 500,
         skip: Math.floor(Math.random() * 500),
         filter: 'Picture/PictureUrl1 ne null and City ne null'
       })
-      commit(SCENIC_SPOT, res)
+      commit('SCENIC_SPOT', res)
     },
-    async [loadRestaurant] ({ commit, state }) {
+    async getRestaurant ({ commit, state }) {
       if (state.restaurant.length) return
       const res = await getTourism(tourismType.restaurant, {
         top: 500,
         skip: Math.floor(Math.random() * 500),
         filter: 'Picture/PictureUrl1 ne null and City ne null'
       })
-      commit(RESTAURANT, res)
+      commit('RESTAURANT', res)
     },
-    async [loadActivity] ({ commit, state }) {
+    async getActivity ({ commit, state }) {
       if (state.activity.length) return
       const res = await getTourism(tourismType.activity, {
         top: 200,
         skip: Math.floor(Math.random() * 30),
         filter: 'Picture/PictureUrl1 ne null and City ne null'
       })
-      commit(ACTIVITY, res)
+      commit('ACTIVITY', res)
     },
-    async [searchScenicSpot] ({ commit, state }, { filter }) {
+    async searchScenicSpot ({ commit, state }, { filter }) {
       const res = await getTourism(tourismType.scenicSpot, {
         top: 30,
         filter: filter
       })
-      commit(SEARCH_SCENIC_SPOT, res)
+      commit('SEARCH_SCENIC_SPOT', res)
     },
-    async [searchRestaurant] ({ commit, state }, { filter }) {
+    async searchRestaurant ({ commit, state }, { filter }) {
       const res = await getTourism(tourismType.restaurant, {
         top: 30,
         filter: filter
       })
-      commit(SEARCH_RESTAURANT, res)
+      commit('SEARCH_RESTAURANT', res)
     },
-    async [searchActivity] ({ commit, state }, { filter }) {
+    async searchActivity ({ commit, state }, { filter }) {
       const res = await getTourism(tourismType.activity, {
         top: 30,
         filter: filter
       })
-      commit(SEARCH_ACTIVITY, res)
+      commit('SEARCH_ACTIVITY', res)
     }
   },
   getters: {
@@ -101,13 +99,13 @@ export default createStore({
       })
       return res
     },
-    recentActivity (state) {
+    recentActivity: (state) => (count) => {
       const now = dayjs()
       const twoMonths = now.add(2, 'month')
       let arr = state.activity.filter(item => {
         return now.isAfter(item.StartTime) && twoMonths.isAfter(item.EndTime)
       })
-      arr = sampleSize(state.activity, 4)
+      arr = sampleSize(state.activity, count)
       const res = arr.map(item => {
         return {
           id: item.ID,
@@ -123,8 +121,8 @@ export default createStore({
       })
       return res
     },
-    goodRestaurant (state) {
-      const arr = sampleSize(state.restaurant, 6)
+    goodRestaurant: (state) => (count) => {
+      const arr = sampleSize(state.restaurant, count)
       const res = arr.map(item => {
         return {
           id: item.ID,

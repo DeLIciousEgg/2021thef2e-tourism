@@ -6,12 +6,12 @@
     <home-search />
   </div>
   <div class="px-4 md:px-11 mb-9">
-    <home-swiper :list="swiperList" :loading="isLoad.scenicSpot" class="mb-9" />
+    <home-swiper :list="swiperList" :loading="scenicSpotLoading" class="mb-9" />
     <home-activity />
   </div>
   <div class="mb-9">
     <card-block
-      :loading="isLoad.scenicSpot"
+      :loading="scenicSpotLoading"
       title="熱門打卡景點"
       moreLabel="查看更多景點"
       :list="popularScenicSpot"
@@ -21,7 +21,7 @@
   </div>
   <div class="mb-9">
     <card-block
-      :loading="isLoad.restaurant"
+      :loading="restaurantLoading"
       title="一再回訪美食"
       moreLabel="查看更多美食"
       :list="goodRestaurant"
@@ -37,9 +37,9 @@ import HomeSearch from '@/components/HomeSearch'
 import HomeActivity from '@/components/HomeActivity'
 import HomeSwiper from '@/components/HomeSwiper'
 import CardBlock from '@/components/CardBlock'
-import { computed, onMounted, reactive } from 'vue'
-import { useStore } from 'vuex'
-import { loadScenicSpot, loadRestaurant } from '@/store/action-types'
+import { computed } from 'vue'
+import useScenicSpot from '@/composables/useScenicSpot'
+import useRestaurant from '@/composables/useRestaurant'
 export default {
   name: 'Tourism',
   components: {
@@ -50,24 +50,15 @@ export default {
     CardBlock
   },
   setup () {
-    const store = useStore()
-    const isLoad = reactive({
-      scenicSpot: true,
-      restaurant: true
-    })
-
-    onMounted(async () => {
-      await store.dispatch(loadScenicSpot)
-      isLoad.scenicSpot = false
-      await store.dispatch(loadRestaurant)
-      isLoad.restaurant = false
-    })
+    const { scenicSpotLoading, popularScenicSpot } = useScenicSpot()
+    const { restaurantLoading, goodRestaurant } = useRestaurant()
 
     return {
-      isLoad,
-      swiperList: computed(() => store.getters.popularScenicSpot(6)),
-      popularScenicSpot: computed(() => store.getters.popularScenicSpot(6)),
-      goodRestaurant: computed(() => store.getters.goodRestaurant)
+      scenicSpotLoading,
+      restaurantLoading,
+      swiperList: computed(() => popularScenicSpot(6)),
+      popularScenicSpot: computed(() => popularScenicSpot(6)),
+      goodRestaurant: computed(() => goodRestaurant(6))
     }
   }
 }
