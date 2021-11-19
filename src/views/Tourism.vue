@@ -1,5 +1,5 @@
 <template>
-  <div class="px-4 md:px-11 mb-9">
+  <div class="px-4 md:px-11 mb-9 mt-6 md:mt-14">
     <div
       class="w-full h-48 sm:h-60 md:h-96 relative rounded-2xl overflow-hidden mb-4"
       :class="{ 'skeleton': isLoad.tourism }"
@@ -26,7 +26,7 @@
         v-for="(item, index) of data.classList"
         :key="item + index"
         :to="`/search/${$route.params.type}/category/${item}`"
-        class="text-tag text-sm md:text-xl font-normal rounded-3xl border border-solid border-tag px-3 py-1"
+        class="text-tag text-sm md:text-xl font-normal rounded-3xl border border-solid border-tag px-3 py-1 mr-2"
       ># {{ item }}</router-link>
       <div class="mt-4 text-black">
         <span class="text-lg md:text-xl font-medium mb-2">{{ data.tourismName }}介紹：</span>
@@ -57,13 +57,28 @@
       </div>
     </div>
   </template>
+
+  <card-block
+  class="mb-16 md:mb-28"
+    :loading="otherDataLoading"
+    :title="`不能錯過的${tourismName}`"
+    :moreLabel="`查看更多${tourismName}`"
+    :list="otherDataList"
+    @click-more="$router.push(`/search/${$route.params.type}`)"
+    @click-card="$router.push(`/tourism/${$route.params.type}/${$event}`)"
+  ></card-block>
 </template>
 
 <script>
-import { computed, onMounted, reactive, ref, watch } from 'vue'
+import { computed, reactive, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { getTourism } from '@/api/tourism'
-import { dateFormat } from '@/utils/config'
+import { dateFormat, tourismType } from '@/utils/config'
+
+import useScenicSpot from '@/composables/useScenicSpot'
+import useRestaurant from '@/composables/useRestaurant'
+import useActivity from '@/composables/useActivity'
+import CardBlock from '@/components/CardBlock'
 
 const tourismNameMap = {
   scenicSpot: '景點',
@@ -98,29 +113,28 @@ const columns = {
 }
 export default {
   name: 'Tourism',
+  components: {
+    CardBlock
+  },
   setup () {
     const route = useRoute()
     const isLoad = reactive({
       tourism: true
     })
     const tourismData = ref({})
+    const tourismName = ref(tourismNameMap[route.params.type])
 
-    const loadTourismData = async () => {
+    const loadTourismData = async (type, id) => {
       isLoad.tourism = true
-      const res = await getTourism(route.params.type, {
+      const res = await getTourism(tourismType[type], {
         top: 1,
-        filter: `ID eq '${route.params.id}'`
+        filter: `ID eq '${id}'`
       })
       if (res[0]) {
         tourismData.value = res[0]
       }
-      console.log(tourismData.value)
       isLoad.tourism = false
     }
-
-    onMounted(async () => {
-      await loadTourismData()
-    })
 
     const classList = computed(() => {
       const list = []
@@ -188,20 +202,53 @@ export default {
         classList: classList.value,
         description: tourismData.value.Description,
         infomation: infomation.value.info,
-        tourismName: tourismNameMap[route.params.type]
+        tourismName: tourismName.value
       }
     })
 
     watch(
-      () => route.params.id,
-      async () => {
-
+      () => route.params,
+      async (params) => {
+        await loadTourismData(route.params.type, route.params.id)
+      },
+      {
+        immediate: true
       }
     )
+
+    let otherDataLoading = ref(false)
+    let otherDataListFunction = null
+    let otherData = {}
+    switch (route.params.type) {
+      case 'scenicSpot':
+        otherData = useScenicSpot()
+        console.log(otherData)
+        otherDataLoading = otherData.scenicSpotLoading
+        otherDataListFunction = otherData.popularScenicSpot
+        console.log(otherDataListFunction)
+        break
+
+      case 'restaurant':
+        otherData = useRestaurant()
+        otherDataLoading = otherData.restaurantLoading
+        otherDataListFunction = otherData.goodRestaurant
+
+        break
+
+      case 'activity':
+        otherData = useActivity()
+        otherDataLoading = otherData.activityLoading
+        otherDataListFunction = otherData.recentActivity
+        break
+    }
+
     return {
+      tourismName,
       tourismData,
       data,
-      isLoad
+      isLoad,
+      otherDataLoading,
+      otherDataList: computed(() => otherDataListFunction(6))
     }
   }
 }
