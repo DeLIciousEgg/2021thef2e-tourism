@@ -63,13 +63,13 @@ export default {
 </script>
 
 <style scoped>
-.swiper-container-horizontal >>> .swiper-pagination-bullets {
+.swiper-container-horizontal:deep(.swiper-pagination-bullets) {
   @apply hidden sm:flex justify-end pr-7 pb-5 space-x-1;
 }
-.swiper-container-horizontal >>> .swiper-pagination-bullet {
+.swiper-container-horizontal:deep(.swiper-pagination-bullet) {
   @apply w-4 h-4 bg-gray-900;
 }
-.swiper-container-horizontal >>> .swiper-pagination-bullet-active {
+.swiper-container-horizontal:deep(.swiper-pagination-bullet-active) {
   @apply bg-white;
 }
 </style>

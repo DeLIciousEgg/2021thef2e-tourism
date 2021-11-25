@@ -1,29 +1,29 @@
 import dayjs from 'dayjs'
 
-export const city = {
-  臺北市: 'Taipei',
-  新北市: 'NewTaipei',
-  桃園市: 'Taoyuan',
-  臺中市: 'Taichung',
-  臺南市: 'Tainan',
-  高雄市: 'Kaohsiung',
-  基隆市: 'Keelung',
-  新竹市: 'Hsinchu',
-  新竹縣: 'HsinchuCounty',
-  苗栗縣: 'MiaoliCounty',
-  彰化縣: 'ChanghuaCounty',
-  南投縣: 'NantouCounty',
-  雲林縣: 'YunlinCounty',
-  嘉義縣: 'ChiayiCounty',
-  嘉義市: 'Chiayi',
-  屏東縣: 'PingtungCounty',
-  宜蘭縣: 'YilanCounty',
-  花蓮縣: 'HualienCounty',
-  臺東縣: 'TaitungCounty',
-  金門縣: 'KinmenCounty',
-  澎湖縣: 'PenghuCounty',
-  連江縣: 'LienchiangCounty'
-}
+export const cityList = [
+  { name: '臺北市', value: 'Taipei' },
+  { name: '新北市', value: 'NewTaipei' },
+  { name: '桃園市', value: 'Taoyuan' },
+  { name: '臺中市', value: 'Taichung' },
+  { name: '臺南市', value: 'Tainan' },
+  { name: '高雄市', value: 'Kaohsiung' },
+  { name: '基隆市', value: 'Keelung' },
+  { name: '新竹市', value: 'Hsinchu' },
+  { name: '新竹縣', value: 'HsinchuCounty' },
+  { name: '苗栗縣', value: 'MiaoliCounty' },
+  { name: '彰化縣', value: 'ChanghuaCounty' },
+  { name: '南投縣', value: 'NantouCounty' },
+  { name: '雲林縣', value: 'YunlinCounty' },
+  { name: '嘉義縣', value: 'ChiayiCounty' },
+  { name: '嘉義市', value: 'Chiayi' },
+  { name: '屏東縣', value: 'PingtungCounty' },
+  { name: '宜蘭縣', value: 'YilanCounty' },
+  { name: '花蓮縣', value: 'HualienCounty' },
+  { name: '臺東縣', value: 'TaitungCounty' },
+  { name: '金門縣', value: 'KinmenCounty' },
+  { name: '澎湖縣', value: 'PenghuCounty' },
+  { name: '連江縣', value: 'LienchiangCounty' }
+]
 
 export const tourismType = {
   scenicSpot: 'ScenicSpot',
