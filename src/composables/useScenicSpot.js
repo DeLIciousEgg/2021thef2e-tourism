@@ -1,5 +1,5 @@
 import { useStore } from 'vuex'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 
 export default function useScenicSpot () {
   const store = useStore()
@@ -13,6 +13,6 @@ export default function useScenicSpot () {
   return {
     scenicSpotLoading,
     popularScenicSpot: store.getters.popularScenicSpot,
-    categoryScenicSpot: store.getters.categoryScenicSpot
+    categoryScenicSpot: computed(() => store.getters.categoryScenicSpot)
   }
 }

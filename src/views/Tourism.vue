@@ -74,11 +74,8 @@ import { computed, reactive, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { getTourism } from '@/api/tourism'
 import { dateFormat, tourismType } from '@/utils/config'
-
-import useScenicSpot from '@/composables/useScenicSpot'
-import useRestaurant from '@/composables/useRestaurant'
-import useActivity from '@/composables/useActivity'
 import CardBlock from '@/components/CardBlock'
+import useTourismType from '@/composables/useTourismType'
 
 const tourismNameMap = {
   scenicSpot: '景點',
@@ -216,39 +213,15 @@ export default {
       }
     )
 
-    let otherDataLoading = ref(false)
-    let otherDataListFunction = null
-    let otherData = {}
-    switch (route.params.type) {
-      case 'scenicSpot':
-        otherData = useScenicSpot()
-        console.log(otherData)
-        otherDataLoading = otherData.scenicSpotLoading
-        otherDataListFunction = otherData.popularScenicSpot
-        console.log(otherDataListFunction)
-        break
-
-      case 'restaurant':
-        otherData = useRestaurant()
-        otherDataLoading = otherData.restaurantLoading
-        otherDataListFunction = otherData.goodRestaurant
-
-        break
-
-      case 'activity':
-        otherData = useActivity()
-        otherDataLoading = otherData.activityLoading
-        otherDataListFunction = otherData.recentActivity
-        break
-    }
+    const { loading, getList } = useTourismType(route.params.type)
 
     return {
       tourismName,
       tourismData,
       data,
       isLoad,
-      otherDataLoading,
-      otherDataList: computed(() => otherDataListFunction(6))
+      otherDataLoading: loading,
+      otherDataList: computed(() => getList(6))
     }
   }
 }

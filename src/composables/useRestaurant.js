@@ -1,5 +1,5 @@
 import { useStore } from 'vuex'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 
 export default function useRestaurant () {
   const store = useStore()
@@ -13,6 +13,6 @@ export default function useRestaurant () {
   return {
     restaurantLoading,
     goodRestaurant: store.getters.goodRestaurant,
-    categoryRestaurant: store.getters.categoryRestaurant
+    categoryRestaurant: computed(() => store.getters.categoryRestaurant)
   }
 }

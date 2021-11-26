@@ -1,5 +1,5 @@
 <template>
-  <form class="text-center px-4 mt-6 mb-6 md:mb-14 md:flex" @submit="searchHandler">
+  <div class="text-center px-4 mt-6 mb-6 md:mb-14 md:flex">
     <base-select
       class="w-full md:w-60 mb-2 md:mb-0"
       default-label="全部縣市"
@@ -12,7 +12,7 @@
       <img src="@/assets/Search.svg" alt="Search" class="mr-3 w-7 h-7" />
       <span class="font-bold tracking-widest">搜 尋</span>
     </base-button>
-  </form>
+  </div>
   <router-view></router-view>
 </template>
 

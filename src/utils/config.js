@@ -33,8 +33,8 @@ export const tourismType = {
 
 export const tourismTypeList = [
   { id: 'scenicSpot', name: '探索景點' },
-  { id: 'restaurant', name: '節慶活動' },
-  { id: 'activity', name: '品嚐美食' }
+  { id: 'activity', name: '節慶活動' },
+  { id: 'restaurant', name: '品嚐美食' }
 ]
 
 export const dateFormat = (dateTime) => {
